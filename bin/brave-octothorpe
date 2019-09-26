@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require "../lib/brave-octothorpe"
+
+BraveOctothorpe.new.show
