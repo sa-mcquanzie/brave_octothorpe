@@ -35,16 +35,25 @@ module Graphics
       Settings.window_width / 2 - (text.size * Settings.tile_size) / 2, 0, Settings.tile_size, 1, 1, Settings.title_colour)
   end
 
+  def display_lives(font)
+    x = Settings.margin_right - Settings.tile_size
+    y = Settings.window_height - Settings.tile_size.floor_to(Settings.tile_size)
+    Game.lives.times do
+      font.draw_text(Settings.heart, x, y, 1, 1, 1, Settings.heart_colour)
+      x -= Settings.tile_size * 2
+    end
+  end
+
   # Positions the happy mailbox or the angry failbox at the bottom left of the screen
   def show_emoticon(var, font)
       var == Settings.mailbox ? z = 0 : z = 3
-      font.draw_text(var, Settings.tile_size, Settings.margin_bottom.round_to(Settings.tile_size), z, 1, 1, 0xff_ffff00)
+      font.draw_text(var, Settings.margin_left, Settings.margin_bottom + Settings.tile_size, z, 1, 1, 0xff_ffff00)
   end
 
   # Function to overwrite the mailbox / failbox
   def erase_emoticon
-      x = Settings.tile_size
-      y = Settings.margin_bottom.round_to(Settings.tile_size)
+      x = Settings.margin_left
+      y = Settings.margin_bottom + Settings.tile_size
       3.times do |i|
         Gosu.draw_rect(x, y, Settings.tile_size, Settings.tile_size, 0xff_000000, z = 2)
         x += 32

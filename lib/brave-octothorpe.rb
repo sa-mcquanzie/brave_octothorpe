@@ -43,6 +43,7 @@ class BraveOctothorpe < Window
         @player.move(:none)
       end
       Game.lose_level
+      Game.lose_life
       new_level
     end
 
@@ -128,10 +129,11 @@ class BraveOctothorpe < Window
     # Check if the player has collected all the target letters and in the case that
     # they have, check if they have arrived at the mailbox. If so: Level up!
     if @message.join("") == @completed
-      if @active_tile.y == Settings.margin_bottom.round_to(Settings.tile_size) &&
-        @active_tile.x.between?(Settings.tile_size, Settings.tile_size * 2)
+      if @active_tile.y.between?(Settings.margin_bottom + Settings.tile_size / 2, Settings.margin_bottom + Settings.tile_size * 2) &&
+        @active_tile.x.between?(Settings.margin_left, Settings.margin_left + Settings.tile_size)
         @player.move(:none)
         sleep 2
+        Game.add_life
         new_level
       end
     end
@@ -143,6 +145,7 @@ class BraveOctothorpe < Window
     Graphics.render_tail
     Graphics.draw_tiles(@font)
     Graphics.display_centered_title(@message.join(""), @small_font)
+    Graphics.display_lives(@small_font)
     Graphics.show_emoticon(Settings.mailbox, @font) if @message.join("") == @completed    
     if Position.collide?(@active_tile, @player)
       Graphics.erase_emoticon

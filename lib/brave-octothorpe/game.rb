@@ -7,14 +7,17 @@ include Gosu
 module Game
   @@levels = {}  
   @@current_level = 0
-  @@lives = 0
+  @@lives = 3
 
   # Accessors for reading / changing the game level
   def self.current_level() @@current_level end
   def self.next_level() @@current_level += 1 end
   def lose_level() @@current_level -= 1 end
   def self.level_change_by(num) @@current_level += num end
-  
+  def self.lives() @@lives end
+  def self.lose_life() @@lives -= 1 end
+  def self.add_life() @@lives += 1 end
+
   ### Grid class, including Tile
   class Grid
     @@tiles = []    

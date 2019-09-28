@@ -27,6 +27,7 @@ module Settings
   def tail_colour() 0xff_ff00ff end
   def enemy_colour() 0xff_ff0000 end
   def title_colour() Gosu::Color.rgba(128, 255, 255, 255) end
+  def heart_colour() Gosu::Color.rgba(225, 0, 100, 200) end
 
   # Assets
   def background() "" end #TODO -- perhaps
